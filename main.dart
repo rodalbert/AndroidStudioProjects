@@ -1,85 +1,59 @@
+import 'dart:math';
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(MyApp());
+  return runApp(
+    MaterialApp(
+      home: Scaffold(
+        backgroundColor: Colors.red,
+        appBar: AppBar(
+          title: Text('Dicee'),
+          backgroundColor: Colors.red,
+        ),
+        body: DicePage(),
+      ),
+    ),
+  );
 }
 
-class MyApp extends StatelessWidget {
+class DicePage extends StatefulWidget {
+  @override
+  _DicePageState createState() => _DicePageState();
+}
+
+class _DicePageState extends State<DicePage> {
+  int leftDiceNumber = 1;
+  int rightDiceNumber = 1;
+
+  void changeDiceFace() {
+    setState(() {
+      leftDiceNumber = Random().nextInt(6) + 1;
+      rightDiceNumber = Random().nextInt(6) +1;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
-        backgroundColor: Colors.orangeAccent,
-        body: SafeArea(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            CircleAvatar(
-              radius: 50.0,
-              backgroundImage: AssetImage('images/rodrigo.jpg'),
+    return Center(
+      child: Row(
+        children: <Widget>[
+          Expanded(
+            child: FlatButton(
+              onPressed: (){
+                changeDiceFace();
+              },
+              child: Image.asset('images/dice$leftDiceNumber.png'),
             ),
-            Text(
-              'Rodrigo Alberto',
-              style: TextStyle(
-                fontFamily: 'Pacifico',
-                fontSize: 40.0,
-                color: Colors.white,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            Text(
-              'FLUTTER DEVELOPER',
-              style: TextStyle(
-                fontFamily: 'Source Sans Pro',
-                color: Colors.deepOrangeAccent.shade100,
-                fontSize: 20.0,
-                letterSpacing: 2.5,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            SizedBox(
-              height: 20.0,
-              width: 150.0,
-              child: Divider(
-              color: Colors.deepOrangeAccent.shade100,
-            ),),
-            Card(
-              margin: EdgeInsets.symmetric(vertical: 10.0, horizontal: 25.0),
-              child: ListTile(
-                leading: Icon(
-                  Icons.phone,
-                  color: Colors.redAccent,
-                ),
-                title: Text(
-                  '+351 91 33 15 277',
-                  style: TextStyle(
-                    color: Colors.redAccent,
-                    fontFamily: 'Source Sans Pro',
-                    fontSize: 20.0,
-                  ),
-                ),
-              ),
-            ),
-            Card(
-              margin: EdgeInsets.symmetric(vertical:10.0, horizontal: 25.5),
-              child: ListTile(
-                leading: Icon(
-                  Icons.email,
-                  color: Colors.redAccent,
-                ),
-                title: Text(
-                  'rodalbert@gmail.com',
-                  style: TextStyle(
-                    fontSize: 20.0,
-                    color: Colors.redAccent,
-                    fontFamily: 'Source Sans Pro',
-                  ),
-                ),
-              ),
-            ),
-          ],
           ),
-        ),
+          Expanded(
+            child: FlatButton(
+              onPressed: (){
+                changeDiceFace();
+              },
+              child: Image.asset('images/dice$rightDiceNumber.png'),
+            ),
+          ),
+        ],
       ),
     );
   }
